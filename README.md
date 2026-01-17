@@ -220,13 +220,51 @@ Configure webhook endpoint in Stripe Dashboard:
 - URL: `https://your-domain.com/api/stripe/webhook`
 - Events: `checkout.session.completed`, `customer.subscription.*`
 
+## Testing
+
+### Unit Tests (Vitest)
+```bash
+pnpm test              # Watch mode
+pnpm test:run          # Single run
+pnpm test:coverage     # With coverage report
+pnpm test:ui           # Interactive UI
+```
+
+### E2E Tests (Playwright)
+```bash
+pnpm test:e2e          # Run all browsers
+pnpm test:e2e:ui       # Interactive UI
+```
+
+## Commit Hooks
+
+Pre-configured with [husky](https://typicode.github.io/husky/):
+
+- **pre-commit**: Runs lint-staged (formats staged files)
+- **commit-msg**: Enforces [Conventional Commits](https://www.conventionalcommits.org/)
+
+### Commit Message Format
+```
+<type>: <description>
+
+# Examples:
+feat: add user authentication
+fix: resolve login redirect issue
+docs: update API documentation
+```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+
 ## Scripts
 
 ```bash
-pnpm dev          # Start development server
-pnpm build        # Build for production
-pnpm start        # Start production server
-pnpm format       # Format code with Prettier
+pnpm dev              # Start development server
+pnpm build            # Build for production
+pnpm start            # Start production server
+pnpm format           # Format code with Prettier
+pnpm format:check     # Check formatting
+pnpm test             # Run unit tests
+pnpm test:e2e         # Run E2E tests
 ```
 
 ## License
