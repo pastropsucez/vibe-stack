@@ -223,10 +223,9 @@ GitHub Actions workflows are pre-configured:
 ### Setup GitHub CI
 
 1. Go to repo **Settings** → **Secrets and variables** → **Actions**
-2. Add variable: `CONVEX_CONFIGURED = true` (enables E2E tests)
-3. Add secrets:
-   - `NEXT_PUBLIC_CONVEX_URL`
-   - `CONVEX_DEPLOY_KEY`
+2. Add secrets:
+   - `NEXT_PUBLIC_CONVEX_URL` - enables E2E tests
+   - `CONVEX_DEPLOY_KEY` - enables auto-deploy on push
 
 ### Dependabot
 

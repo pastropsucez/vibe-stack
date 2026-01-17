@@ -91,8 +91,8 @@ jobs:
     name: E2E Tests
     runs-on: ubuntu-latest
     needs: [build]
-    # E2E needs a running Convex backend
-    if: ${{ vars.CONVEX_CONFIGURED == 'true' }}
+    # E2E needs Convex URL configured
+    if: ${{ secrets.NEXT_PUBLIC_CONVEX_URL != '' }}
 
     steps:
       - name: Checkout

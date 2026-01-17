@@ -15,9 +15,8 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
   callbacks: {
     async afterUserCreatedOrUpdated(ctx, { userId }) {
       // Check if user profile exists
-      const existingProfile = await ctx.db
-        .query("userProfiles")
-        .withIndex("by_user", (q) => q.eq("userId", userId))
+      const existingProfile = await (ctx.db.query("userProfiles") as any)
+        .withIndex("by_user", (q: any) => q.eq("userId", userId))
         .first()
 
       const now = new Date().toISOString()

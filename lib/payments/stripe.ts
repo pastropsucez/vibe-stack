@@ -4,9 +4,12 @@ import Stripe from "stripe"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-04-30.basil",
-})
+// Only initialize Stripe if the secret key is configured
+export const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2025-08-27.basil",
+    })
+  : (null as unknown as Stripe)
 
 export async function handleCheckoutCompleted(
   session: Stripe.Checkout.Session,
