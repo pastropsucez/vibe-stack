@@ -144,6 +144,30 @@ This template comes with Claude Code configuration:
 
 See `.claude/` directory for configuration.
 
+## CI/CD
+
+GitHub Actions workflows are pre-configured:
+
+### Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| **CI** | Push/PR to main | Build, type check, lint |
+| **Deploy Convex** | Push to main (convex/**) | Deploy backend functions |
+
+### Required Secrets
+
+Add these in GitHub Settings > Secrets:
+
+```
+CONVEX_DEPLOY_KEY        # From: npx convex deploy --prod-url
+NEXT_PUBLIC_CONVEX_URL   # Your Convex deployment URL
+```
+
+### Dependabot
+
+Automatic dependency updates run weekly on Mondays.
+
 ## Deployment
 
 ### Convex
@@ -156,7 +180,12 @@ npx convex deploy
 
 1. Push to GitHub
 2. Import in Vercel
-3. Add environment variables
+3. Add environment variables:
+   - `NEXT_PUBLIC_CONVEX_URL`
+   - `CONVEX_DEPLOY_KEY`
+   - `AUTH_SECRET`
+   - `STRIPE_SECRET_KEY`
+   - `STRIPE_WEBHOOK_SECRET`
 4. Deploy
 
 ### Stripe Webhook
