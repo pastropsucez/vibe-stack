@@ -52,10 +52,54 @@ vibe-stack/
 │   ├── utils.ts           # Utility functions (cn, cleanConvexError)
 │   ├── constants/         # App constants and paths
 │   └── payments/          # Stripe integration
-└── .claude/               # Claude Code configuration
-    ├── settings.json      # Permissions and hooks
-    └── skills/            # Custom skills
+├── .claude/               # Claude Code configuration
+│   ├── settings.json      # Permissions and hooks
+│   ├── rules/             # Convex & TypeScript best practices
+│   └── skills/            # Pre-installed skills (see below)
+└── .mcp.json              # MCP server configuration
 ```
+
+## MCP Servers (Pre-configured)
+
+This template includes two MCP servers in `.mcp.json`:
+
+### shadcn/ui MCP
+Direct access to the shadcn component registry:
+- Browse all available components and blocks
+- Install components with natural language ("add a login form")
+- Access current component documentation
+
+### Convex MCP
+Full access to your Convex deployment:
+- Query and browse tables
+- Execute sandboxed read queries
+- View function metadata and logs
+- Manage environment variables
+
+**Verify MCP connection:** Run `/mcp` in Claude Code to see status.
+
+## Pre-installed Skills
+
+Located in `.claude/skills/`:
+
+### react-best-practices (Vercel)
+45 performance rules across 8 categories from Vercel Engineering:
+- **CRITICAL**: Eliminating waterfalls, bundle optimization
+- **HIGH**: Server-side performance
+- **MEDIUM**: Re-render optimization, rendering performance
+- **LOW**: JavaScript performance, advanced patterns
+
+### web-design-guidelines (Vercel)
+100+ rules covering accessibility, performance, and UX.
+
+### code-review
+PR review checklist with security and quality gates.
+
+### testing
+Build verification and testing patterns.
+
+### deployment
+Convex + Vercel deployment guide.
 
 ## Convex Backend
 

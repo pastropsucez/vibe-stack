@@ -136,13 +136,33 @@ See `lib/payments/stripe.ts` for implementation.
 
 ## Claude Code Integration
 
-This template comes with Claude Code configuration:
+This template is fully configured for AI-assisted development with Claude Code.
 
-- **Skills**: Code review, testing, deployment guides
-- **Rules**: TypeScript and Convex best practices
-- **Permissions**: Safe defaults for AI-assisted development
+### MCP Servers (`.mcp.json`)
 
-See `.claude/` directory for configuration.
+| Server | Purpose |
+|--------|---------|
+| **shadcn** | Browse & install components with natural language |
+| **convex** | Query tables, view logs, manage env vars |
+
+Verify connection: Run `/mcp` in Claude Code.
+
+### Pre-installed Skills (`.claude/skills/`)
+
+| Skill | Source | Description |
+|-------|--------|-------------|
+| **react-best-practices** | Vercel | 45 performance rules across 8 categories |
+| **web-design-guidelines** | Vercel | 100+ accessibility, performance, UX rules |
+| **code-review** | Custom | PR review with security checklist |
+| **testing** | Custom | Build verification patterns |
+| **deployment** | Custom | Convex + Vercel deployment guide |
+
+### Rules (`.claude/rules/`)
+
+- **convex.md** - Schema design, auth patterns, query optimization
+- **typescript.md** - Type safety, error handling, imports
+
+See `CLAUDE.md` for full documentation.
 
 ## CI/CD
 
