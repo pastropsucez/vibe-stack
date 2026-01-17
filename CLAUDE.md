@@ -8,20 +8,65 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 # Install dependencies
 pnpm install
 
-# Set up Convex
-npx convex dev          # Start Convex development server (runs in background)
+# Set up Convex (creates your backend)
+npx convex dev          # Start Convex dev server (keep running)
 
-# Start development
-pnpm dev               # Start Next.js dev server with Turbopack
+# Start development (in another terminal)
+pnpm dev               # Start Next.js with Turbopack
+
+# Tests
+pnpm test              # Unit tests (Vitest)
+pnpm test:e2e          # E2E tests (Playwright)
 
 # Production
 pnpm build             # Build for production
 pnpm start             # Start production server
 ```
 
+## AI Development Tools
+
+This template is pre-configured for AI-assisted development. Use these tools proactively.
+
+### MCP Servers (Auto-loaded)
+
+Three MCP servers are pre-configured in `.mcp.json`:
+
+| Server            | When to Use          | Example Tasks                                     |
+| ----------------- | -------------------- | ------------------------------------------------- |
+| **shadcn**        | Adding UI components | "Add a dialog component", "Install dropdown menu" |
+| **convex**        | Database operations  | "Query the users table", "Check Convex logs"      |
+| **next-devtools** | Debugging            | "Show route tree", "Check server logs"            |
+
+**Verify connections:** Run `/mcp` in Claude Code to check status.
+
+**Optional:** Add Vercel MCP for deployment management:
+
+```bash
+claude mcp add --transport http vercel https://mcp.vercel.com
+```
+
+### Pre-loaded Skills (`.claude/skills/`)
+
+Use these skills when their context applies:
+
+| Skill                     | When to Apply                                     |
+| ------------------------- | ------------------------------------------------- |
+| **react-best-practices**  | Writing React components, optimizing performance  |
+| **web-design-guidelines** | UI/UX decisions, accessibility, responsive design |
+| **code-review**           | Before commits, reviewing PRs                     |
+| **testing**               | Writing tests, debugging failures                 |
+| **deployment**            | Deploying to Convex/Vercel                        |
+
+### Pre-loaded Rules (`.claude/rules/`)
+
+These rules are automatically applied:
+
+- **convex.md** - Schema design, auth patterns, query optimization
+- **typescript.md** - Type safety, error handling, import conventions
+
 ## Architecture Overview
 
-**Vibe Stack** is a production-ready full-stack starter built on:
+**Vibe Stack** is a production-ready full-stack starter:
 
 - **Next.js 15** - App Router, Server Actions, React 19, Turbopack
 - **Convex** - Backend (database, auth, real-time subscriptions)
@@ -34,107 +79,87 @@ pnpm start             # Start production server
 ```
 vibe-stack/
 ├── app/                    # Next.js App Router
-│   ├── (auth)/            # Authentication routes (login, signup, logout)
+│   ├── (auth)/            # Auth routes (login, signup, logout)
 │   ├── (dashboard)/       # Protected dashboard routes
-│   ├── (home)/            # Public marketing pages
 │   └── api/               # API routes (Stripe webhooks)
 ├── components/
-│   ├── ui/                # shadcn/ui base components
+│   ├── ui/                # shadcn/ui components
 │   ├── providers/         # React context providers
-│   ├── hooks/             # Custom React hooks
-│   └── auth/              # Authentication components
+│   └── hooks/             # Custom React hooks
 ├── convex/                # Convex backend
+│   ├── _generated/        # Auto-generated types (don't edit)
 │   ├── schema.ts          # Database schema
 │   ├── auth.ts            # Authentication config
-│   ├── currentUser.ts     # User queries
-│   └── subscriptions.ts   # Subscription management
+│   └── *.ts               # Queries and mutations
 ├── lib/
-│   ├── utils.ts           # Utility functions (cn, cleanConvexError)
-│   ├── constants/         # App constants and paths
+│   ├── utils.ts           # Utilities (cn, cleanConvexError)
 │   └── payments/          # Stripe integration
-├── .claude/               # Claude Code configuration
-│   ├── settings.json      # Permissions and hooks
-│   ├── rules/             # Convex & TypeScript best practices
-│   └── skills/            # Pre-installed skills (see below)
-└── .mcp.json              # MCP server configuration
+├── tests/
+│   ├── unit/              # Vitest unit tests
+│   └── e2e/               # Playwright E2E tests
+├── .claude/               # Claude Code config
+│   ├── settings.json      # Permissions
+│   ├── rules/             # Auto-applied rules
+│   └── skills/            # Invocable skills
+└── .mcp.json              # MCP server config
 ```
-
-## MCP Servers
-
-### Pre-configured (`.mcp.json`)
-
-| Server            | Purpose                                                        |
-| ----------------- | -------------------------------------------------------------- |
-| **shadcn**        | Browse & install UI components with natural language           |
-| **convex**        | Query tables, view logs, manage env vars                       |
-| **next-devtools** | Runtime diagnostics, route info, dev server logs (Next.js 16+) |
-
-### Optional: Vercel MCP (OAuth required)
-
-Add Vercel's official MCP for deployment management:
-
-```bash
-claude mcp add --transport http vercel https://mcp.vercel.com
-```
-
-Then run `/mcp` to authenticate. Provides:
-
-- Search Vercel documentation
-- Manage projects and deployments
-- Analyze deployment logs
-
-**Verify all MCP connections:** Run `/mcp` in Claude Code.
-
-## Pre-installed Skills
-
-Located in `.claude/skills/`:
-
-### react-best-practices (Vercel)
-
-45 performance rules across 8 categories from Vercel Engineering:
-
-- **CRITICAL**: Eliminating waterfalls, bundle optimization
-- **HIGH**: Server-side performance
-- **MEDIUM**: Re-render optimization, rendering performance
-- **LOW**: JavaScript performance, advanced patterns
-
-### web-design-guidelines (Vercel)
-
-100+ rules covering accessibility, performance, and UX.
-
-### code-review
-
-PR review checklist with security and quality gates.
-
-### testing
-
-Build verification and testing patterns.
-
-### deployment
-
-Convex + Vercel deployment guide.
 
 ## Convex Backend
 
 ### Schema Pattern
 
-Tables are defined in `convex/schema.ts` using Convex validators:
+```typescript
+// convex/schema.ts
+import { defineSchema, defineTable } from "convex/server"
+import { v } from "convex/values"
+
+export default defineSchema({
+  items: defineTable({
+    userId: v.id("users"),
+    title: v.string(),
+    createdAt: v.string(), // ISO timestamp
+  }).index("by_user", ["userId"]),
+})
+```
+
+### Query/Mutation Pattern
 
 ```typescript
+// convex/items.ts
 import { v } from "convex/values"
-import { defineTable } from "convex/server"
 
-defineTable({
-  userId: v.id("users"),
-  settings: v.optional(v.object({...})),
-  createdAt: v.string(),  // ISO timestamp
+import { mutation, query } from "./_generated/server"
+import { auth } from "./auth"
+
+export const getItems = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await auth.getUserId(ctx)
+    if (!userId) return []
+
+    return await ctx.db
+      .query("items")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .collect()
+  },
 })
-  .index("by_user", ["userId"])
+
+export const createItem = mutation({
+  args: { title: v.string() },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx)
+    if (!userId) throw new Error("Not authenticated")
+
+    return await ctx.db.insert("items", {
+      userId,
+      title: args.title,
+      createdAt: new Date().toISOString(),
+    })
+  },
+})
 ```
 
 ### Authentication
-
-Uses Convex Auth with Password provider:
 
 ```typescript
 // Server-side (Server Actions)
@@ -148,32 +173,14 @@ const user = await fetchQuery(api.currentUser.get, {}, { token })
 
 const { signIn, signOut } = useAuthActions()
 await signIn("password", { email, password, flow: "signIn" })
-```
-
-### Query/Mutation Pattern
-
-```typescript
-// convex/myModule.ts
-import { v } from "convex/values"
-
-import { mutation, query } from "./_generated/server"
-import { auth } from "./auth"
-
-export const getData = query({
-  args: { id: v.id("items") },
-  handler: async (ctx, args) => {
-    const userId = await auth.getUserId(ctx)
-    if (!userId) return null
-    return await ctx.db.get(args.id)
-  },
-})
+await signOut()
 ```
 
 ## Key Patterns
 
 ### Error Handling
 
-Convex errors include stack traces. Extract clean messages:
+Convex errors include stack traces. Clean them:
 
 ```typescript
 import { cleanConvexError } from "@/lib/utils"
@@ -181,120 +188,134 @@ import { cleanConvexError } from "@/lib/utils"
 try {
   await signIn("password", { email, password, flow: "signIn" })
 } catch (err: any) {
-  const cleanError = cleanConvexError(err.message)
-  // "Invalid email or password" instead of stack trace
-}
-```
-
-### Form State with React 19
-
-```typescript
-"use client"
-
-import { useState } from "react"
-
-const [pending, setPending] = useState(false)
-const [error, setError] = useState<string | null>(null)
-
-async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault()
-  setPending(true)
-  setError(null)
-
-  try {
-    // ... action
-  } catch (err: any) {
-    setError(cleanConvexError(err.message))
-    setPending(false)
-  }
+  const message = cleanConvexError(err.message)
+  // "Invalid email or password" not stack trace
 }
 ```
 
 ### Route Protection
 
-Middleware handles auth redirects (`middleware.ts`):
+Middleware (`middleware.ts`) auto-protects:
 
-- Protected routes: `/dashboard(.*)`, `/settings(.*)`
-- Auth routes: `/login`, `/signup`
+- `/dashboard/*` - requires auth
+- `/settings/*` - requires auth
 
-### Tailwind Patterns
+Auth pages (`/login`, `/signup`) redirect authenticated users to dashboard.
 
-- Use `cn()` utility for conditional classes
-- Colors via CSS variables: `text-primary`, `bg-secondary`
-- Custom breakpoints: `screen-max-sm:`, `screen-min-lg:`
+### Tailwind Utilities
+
+```typescript
+import { cn } from "@/lib/utils"
+
+// Conditional classes
+<div className={cn("base-class", isActive && "active-class")} />
+
+// CSS variable colors
+<div className="text-primary bg-secondary" />
+```
+
+## Testing
+
+### Unit Tests (Vitest)
+
+```bash
+pnpm test              # Watch mode
+pnpm test:run          # Single run
+pnpm test:coverage     # With coverage
+```
+
+Tests in `tests/unit/`. Mocks pre-configured for:
+
+- Next.js navigation
+- Convex React hooks
+- Convex Auth
+
+### E2E Tests (Playwright)
+
+```bash
+pnpm test:e2e          # All browsers
+pnpm test:e2e:ui       # Interactive UI
+```
+
+Tests in `tests/e2e/`. Requires Convex running.
 
 ## Environment Variables
 
-Required variables (see `.env.example`):
+See `.env.example` for reference. Set via:
+
+- **Local**: `npx convex dev` creates `.env.local`
+- **Production**: `vercel env add` or Convex dashboard
+
+Required:
 
 ```bash
-NEXT_PUBLIC_CONVEX_URL=     # From Convex dashboard
-AUTH_SECRET=                # openssl rand -base64 32
-STRIPE_SECRET_KEY=          # From Stripe dashboard
-STRIPE_WEBHOOK_SECRET=      # From Stripe CLI or dashboard
+CONVEX_DEPLOYMENT=     # Auto-generated
+NEXT_PUBLIC_CONVEX_URL= # Auto-generated
+AUTH_SECRET=           # openssl rand -base64 32
+```
+
+Optional (for payments):
+
+```bash
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
 ```
 
 ## Common Tasks
 
-### Adding a New Convex Table
+### Add a New Table
 
-1. Define in `convex/schema.ts`
+1. Define schema in `convex/schema.ts`
 2. Run `npx convex dev` to sync
-3. Create queries/mutations in new file
+3. Create queries/mutations in `convex/tableName.ts`
 
-### Adding a New Protected Route
+### Add a Protected Route
 
-1. Create route in `app/(dashboard)/your-route/page.tsx`
-2. Middleware automatically protects `/dashboard/*`
+1. Create `app/(dashboard)/your-route/page.tsx`
+2. Middleware auto-protects all `/dashboard/*` routes
 
-### Adding shadcn/ui Components
+### Add UI Components
+
+Use the shadcn MCP or CLI:
 
 ```bash
 npx shadcn@latest add dialog
 npx shadcn@latest add dropdown-menu
 ```
 
-### Stripe Checkout Flow
+### Stripe Checkout
 
-1. Create checkout session with `client_reference_id: userId`
+1. Create session with `client_reference_id: userId`
 2. Webhook receives `checkout.session.completed`
-3. `handleCheckoutCompleted()` updates Convex subscription
-
-## Security Checklist
-
-- Never expose `CONVEX_DEPLOY_KEY` or `STRIPE_SECRET_KEY` client-side
-- Always validate user authentication in Convex functions
-- Use `auth.getUserId(ctx)` before accessing user data
-- Password reset tokens expire in 24 hours
-- Activity logging tracks security-relevant events
-
-## Testing
-
-```bash
-# Run Convex in test mode
-npx convex dev --once
-
-# Run Next.js type checking
-pnpm build
-```
+3. `handleCheckoutCompleted()` updates subscription
 
 ## Deployment
 
-### Vercel + Convex
+### Convex
 
-1. Deploy Convex: `npx convex deploy`
-2. Deploy to Vercel with env vars:
-   - `NEXT_PUBLIC_CONVEX_URL`
-   - `CONVEX_DEPLOY_KEY`
-   - `AUTH_SECRET`
-   - `STRIPE_SECRET_KEY`
-   - `STRIPE_WEBHOOK_SECRET`
+```bash
+npx convex deploy       # Deploy functions
+npx convex env set KEY=value  # Set env vars
+```
 
-### Stripe Webhook Setup
+### Vercel
 
-1. Create webhook endpoint: `https://your-domain.com/api/stripe/webhook`
-2. Subscribe to events:
-   - `checkout.session.completed`
-   - `customer.subscription.created`
-   - `customer.subscription.updated`
-   - `customer.subscription.deleted`
+1. Push to GitHub
+2. Import at vercel.com/new
+3. Add env vars in project settings
+4. Deploy
+
+Required secrets in Vercel:
+
+- `NEXT_PUBLIC_CONVEX_URL`
+- `CONVEX_DEPLOY_KEY`
+- `AUTH_SECRET`
+- `STRIPE_SECRET_KEY` (if using payments)
+
+## Security Checklist
+
+- [ ] Never expose secrets client-side
+- [ ] Always validate auth in Convex functions: `auth.getUserId(ctx)`
+- [ ] Use parameterized queries, never string interpolation
+- [ ] Validate webhook signatures
+- [ ] Keep dependencies updated (Dependabot enabled)
