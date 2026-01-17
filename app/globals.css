@@ -1,0 +1,146 @@
+@import 'tailwindcss';
+@import "tailwindcss/utilities";
+
+@plugin 'tailwindcss-animate';
+
+/* Custom variants */
+@variant screen-max-sm (@media (max-width: 480px));
+@variant screen-min-sm (@media (min-width: 480px));
+@variant screen-min-lg (@media (min-width: 780px));
+@variant screen-max-lg (@media (max-width: 780px));
+
+@theme {
+  /* Font family */
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Oxygen-Sans", Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  /* Custom screens */
+  --breakpoint-sm: 30rem;
+  --breakpoint-md: 42.5rem;
+  --breakpoint-lg: 48.75rem;
+
+  /* Colors */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-tertiary: hsl(var(--tertiary));
+  --color-tertiary-foreground: hsl(var(--tertiary-foreground));
+  --color-silver: hsl(var(--silver));
+  --color-grey-10: hsl(var(--grey-10));
+  --color-grey-15: hsl(var(--grey-15));
+  --color-grey-30: hsl(var(--grey-30));
+  --color-grey-50: hsl(var(--grey-50));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+@layer base {
+  :root {
+    /* Gray Scale */
+    --white: 0, 0%, 100%;
+    --silver: 240, 4%, 95%;
+    --grey: 0, 67%, 33%;
+    --black: 0, 0%, 7%;
+    --grey-10: 210, 3%, 85%;
+    --grey-15: 220, 3%, 80%;
+    --grey-30: 216, 3%, 71%;
+    --grey-50: 223, 3%, 57%;
+
+    /* Brand colors - customize these! */
+    --brand-primary: 217, 91%, 60%;
+    --brand-secondary: 199, 89%, 48%;
+
+    /* App colors */
+    --background: var(--white);
+    --foreground: var(--black);
+    --primary: var(--brand-primary);
+    --primary-foreground: var(--white);
+    --secondary: var(--brand-secondary);
+    --secondary-foreground: var(--white);
+    --tertiary: 219, 13%, 22%;
+    --tertiary-foreground: var(--grey-10);
+
+    /* UI colors */
+    --accent: var(--tertiary);
+    --accent-foreground: var(--white);
+    --border: var(--grey-10);
+    --border-input: var(--grey-10);
+    --border-card: var(--grey-10);
+    --card: var(--white);
+    --card-foreground: var(--black);
+    --destructive: 0, 100%, 50%;
+    --destructive-foreground: var(--white);
+    --link: var(--brand-secondary);
+    --label: var(--grey-50);
+    --muted: var(--grey-15);
+    --muted-foreground: var(--grey-30);
+    --popover: var(--white);
+    --popover-foreground: 224 71.4% 4.1%;
+    --radius: 0.5rem;
+    --ring: var(--brand-secondary), 0.2;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 210 20% 98%;
+    --tertiary: 218 22% 21%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+
+@media (width >= 40rem) {
+  .container {
+    max-width: 1400px;
+  }
+}

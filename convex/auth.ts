@@ -1,0 +1,43 @@
+import { Password } from "@convex-dev/auth/providers/Password"
+import { convexAuth } from "@convex-dev/auth/server"
+
+export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
+  providers: [
+    Password({
+      profile(params) {
+        return {
+          email: params.email as string,
+          name: params.name as string,
+        }
+      },
+    }),
+  ],
+  callbacks: {
+    async afterUserCreatedOrUpdated(ctx, { userId }) {
+      // Check if user profile exists
+      const existingProfile = await ctx.db
+        .query("userProfiles")
+        .withIndex("by_user", (q) => q.eq("userId", userId))
+        .first()
+
+      const now = new Date().toISOString()
+
+      if (existingProfile) {
+        // Increment login count for existing user
+        const currentCount = existingProfile.loginCount ?? 0
+        await ctx.db.patch(existingProfile._id, {
+          loginCount: currentCount + 1,
+          updatedAt: now,
+        })
+      } else {
+        // Create profile for new user
+        await ctx.db.insert("userProfiles", {
+          userId,
+          loginCount: 1,
+          createdAt: now,
+          updatedAt: now,
+        })
+      }
+    },
+  },
+})
